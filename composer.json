@@ -1,0 +1,19 @@
+{
+    "name": "evgeny/portfolio",
+    "description": "stocks and portfolio watcher",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+          "PES": "services"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Evgeny P",
+            "email": "citizenpe@gmail.com"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+.idea
+.vscode
+
+# local env setings
+/config/env.php
+
+/vendor/
+/composer.lock
