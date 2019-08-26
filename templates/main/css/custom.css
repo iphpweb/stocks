@@ -16,3 +16,11 @@
 .modal-footer{
     text-align: center !important;
 }
+
+table {
+    color: #fff;
+}
+
+table.index-stocks tr td {
+    text-transform: uppercase;
+}

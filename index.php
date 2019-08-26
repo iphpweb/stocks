@@ -14,35 +14,40 @@ $stmt = $positions->readAll();
 $num = $stmt->rowCount();
 ?>
 
-<table class='table table-hover table-responsive table-bordered'>
-    <tr>
-        <th>Quote name</th>
-        <th>Amount</th>
-        <th>Price average</th>
-        <th>Price current</th>
-        <th>Delta</th>
-    </tr>
+<div class="table-responsive">
+    <table class='table table-striped table-hover table-bordered index-stocks'>
+        <thead class="thead-dark">
+            <tr>
+                <th>Quote name</th>
+                <th>Amount</th>
+                <th>Price average</th>
+                <th>Price current</th>
+                <th>Delta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?
+            if ($num > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    extract($row);
+                    
+                    $price_cur = 0; //$stocksAPI::getQuote($quote_name);
+                    $delta = $amount * ($price_cur - $price_avg);
+                    $class = 'bg-' . ($delta > 0 ? 'success' : 'danger');
 
-<?
-if ($num > 0) {
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        extract($row);
-
-        echo "<tr data-thisrecordid='{$id}'>";
-            echo "<td>{$quote_name}</td>";
-            echo "<td>{$amount}</td>";
-            echo "<td>{$price_avg}</td>";
-
-            $price_cur = $stocksAPI::getPrice($quote_name);
-            echo "<td>{$price_cur}</td>";
-
-            $delta = $amount * ($price_cur - $price_avg);
-            echo "<td>{$delta}</td>";
-        echo "</tr>";
-    }
+                    echo "<tr class='$class' data-thisrecordid='{$id}'>";
+                        echo "<td>{$quote_name}</td>";
+                        echo "<td>{$amount}</td>";
+                        echo "<td>{$price_avg}</td>";
+                        echo "<td>{$price_cur}</td>";
+                        echo "<td>{$delta}</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><div class='alert alert-info'>No stock records found.</div></tr>";
+            }
+        echo "</tbody>";
     echo "</table>";
-} else {
-    echo "<tr><div class='alert alert-info'>No stock records found.</div></tr>";
-}
+echo "</div>";
 
 include_once(DOCUMENT_ROOT . '/' . SITE_TEMPLATE_PATH . '/footer.php');

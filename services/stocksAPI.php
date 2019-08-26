@@ -74,7 +74,29 @@ class StocksAPI
         return (float)$price;
     }
 
-    public static function stockLogo($ticker)
+    /**
+     * @param $ticker
+     *
+     * @return \DPRMC\IEXTrading\Responses\StockQuote
+     * @throws \DPRMC\IEXTrading\Exceptions\UnknownSymbol
+     * @throws \Exception
+     */
+    public static function getQuote($ticker)
+    {
+        if ($ticker == null)
+            return false;
+
+        $uri      = 'stock/' . $ticker . '/quote';
+        $uri     .= '?token=' . self::PUBLIC_KEY;
+        $response = self::makeRequest($uri);
+
+        $jsonString = (string)$response->getBody();
+        $response   = \GuzzleHttp\json_decode($jsonString, true);
+
+        return (float)$response['latestPrice'];
+    }
+
+    public static function getLogo($ticker)
     {
         $uri      = 'stock/' . $ticker . '/logo';
         $uri     .= '?token=' . self::PUBLIC_KEY;
