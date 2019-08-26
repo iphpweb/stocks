@@ -50,7 +50,7 @@ $num = $stmt->rowCount();
                 }
 
                 $total_tr_class = 'bg-' . ($total_delta > 0 ? 'success' : 'danger');
-                $current_date = date('H-i d M, Y ', time());
+                $current_date = date('H:i', time()) . ' on ' . date('dS M, Y ', time());
                 echo "<tr class='{$total_tr_class}'>
                         <td colspan='4'>Balance as of {$current_date}:</td>
                         <td>{$total_delta}</td>

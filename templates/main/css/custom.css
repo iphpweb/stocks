@@ -1,6 +1,5 @@
 /* index-page-table */
 .index-stocks {
-    border-color: #000;
     /*color: #fff;*/
 }
 
@@ -21,6 +20,7 @@
 }
 
 .index-stocks tr:last-of-type td {
+    text-transform: none;
     color: #fff;
 }
 /* /index-page-table */
