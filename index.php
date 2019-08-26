@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/config/env.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/env.php';
 
 // set page vars
 $page = [
@@ -28,26 +28,40 @@ $num = $stmt->rowCount();
         <tbody>
             <?
             if ($num > 0) {
+                $total_delta = 0;
+
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     extract($row);
-                    
+
+                    //$quote_icon = $stocksAPI::getLogo($quote_name);
                     $price_cur = 0; //$stocksAPI::getQuote($quote_name);
                     $delta = $amount * ($price_cur - $price_avg);
-                    $class = 'bg-' . ($delta > 0 ? 'success' : 'danger');
+                    $class = 'table-' . ($delta > 0 ? 'success' : 'danger');
 
                     echo "<tr class='$class' data-thisrecordid='{$id}'>";
-                        echo "<td>{$quote_name}</td>";
+                        echo "<td><img src='{$quote_icon['url']}'> {$quote_name}</td>";
                         echo "<td>{$amount}</td>";
                         echo "<td>{$price_avg}</td>";
                         echo "<td>{$price_cur}</td>";
                         echo "<td>{$delta}</td>";
                     echo "</tr>";
-                }
-            } else {
-                echo "<tr><div class='alert alert-info'>No stock records found.</div></tr>";
-            }
-        echo "</tbody>";
-    echo "</table>";
-echo "</div>";
 
+                    $total_delta += $delta;
+                }
+
+                $total_tr_class = 'bg-' . ($total_delta > 0 ? 'success' : 'danger');
+                $current_date = date('H-i d M, Y ', time());
+                echo "<tr class='{$total_tr_class}'>
+                        <td colspan='4'>Balance as of {$current_date}:</td>
+                        <td>{$total_delta}</td>
+                     </tr>";
+            } else {
+                echo "<div class='alert alert-info'>No stock records found.</div>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+<?
 include_once(DOCUMENT_ROOT . '/' . SITE_TEMPLATE_PATH . '/footer.php');

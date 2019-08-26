@@ -2,6 +2,7 @@
 .vscode
 
 # local env setings
+/env.php
 /config/env.php
 
 /vendor/

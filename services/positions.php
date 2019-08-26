@@ -1,35 +1,71 @@
 <?php
 
-namespace PES;
-
 class Positions
 {
     // database connection and table name
     private $conn;
     private $table_name = "positions";
 
-    // object properties
+    /**
+     * @var primary key
+     */
     public $id;
+
+    /**
+     * @var varchar
+     */
     public $quote_name;
+
+    /**
+     * @var double
+     */
     public $price_avg;
+
+    /**
+     * @var double
+     */
     public $price_cur;
+
+    /**
+     * @var int
+     */
     public $amount;
+
+    /**
+     * @var int
+     */
     public $portfolio_id;
+
+    /**
+     * @var datetime
+     */
     public $created_at;
+
+    /**
+     * @var timestamp
+     */
     public $updated_at;
+
+    /**
+     * @var timestamp
+     */
     public $timestamp;
 
+    /**
+     * Positions constructor.
+     * @param $db
+     * get DB instance
+     */
     public function __construct($db)
     {
         $this->conn = $db;
     }
 
-    // create product
     public function create()
     {
         //write query
-        $query = "INSERT INTO {$this->table_name} SET
-                    quote_name=:quote_name, price_avg=:price_avg, amount=:amount, created_at=:created_at";
+        $query = "INSERT INTO {$this->table_name} 
+                  SET quote_name=:quote_name, price_avg=:price_avg, amount=:amount, created_at=:created_at";
         $stmt = $this->conn->prepare($query);
 
         // posted values
@@ -38,10 +74,8 @@ class Positions
         $this->amount = htmlspecialchars(strip_tags($this->amount));
         //$this->portfolio_id = htmlspecialchars(strip_tags($this->portfolio_id));
 
-        // to get timestamp for 'created' field
         $this->timestamp = date('Y-m-d H:i:s');
 
-        // bind values 
         $stmt->bindParam(":quote_name", $this->quote_name);
         $stmt->bindParam(":price_avg", $this->price_avg);
         $stmt->bindParam(":amount", $this->amount);
@@ -51,17 +85,24 @@ class Positions
         return ($stmt->execute()) ? true : false;
     }
 
-    public function readAll() : object {
-        $query = "SELECT
-                    id, `quote_name`, `amount`, `price_avg`
-                FROM
-                    `{$this->table_name}`
-                ORDER BY
-                    `quote_name` ASC";
-     
+    public function isExists()
+    {
+        $query = "SELECT id FROM {$this->table_name} WHERE `quote_name`=:quote_name";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":quote_name", $this->quote_name);
+        $stmt->execute();
+
+        return ($stmt->rowCount() > 0) ? true : false;
+    }
+
+    public function readAll()
+    {
+        $query = "SELECT id, `quote_name`, `amount`, `price_avg` FROM `{$this->table_name}` ORDER BY `quote_name` ASC";
+
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-     
+
         return $stmt;
     }
 }

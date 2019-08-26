@@ -6,7 +6,7 @@
     },
     "autoload": {
         "psr-4": {
-          "PES": "services"
+            "Services\\": "services"
         }
     },
     "license": "MIT",

@@ -1,7 +1,5 @@
 <?php
 
-namespace PES;
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
@@ -15,8 +13,8 @@ class StocksAPI
      * iex api cloud keys
      * secret & public
      */
-    const SECRET_KEY = 'sk_025d17e97b5e4ee78a69af4db7153eed';
-    const PUBLIC_KEY = 'pk_58d5a81de6b1482ebb2d94d830380c43';
+    const SECRET_KEY = SECRET_IEX_KEY;
+    const PUBLIC_KEY = PUBLIC_IEX_KEY;
 
     private static $url = self::ENDPOINT_URL . self::ENDPOINT_VERSION . '/';
 
@@ -32,16 +30,6 @@ class StocksAPI
         ]);
     }
 
-    /**
-     * Makes the request and handles any exceptions that the IEXTrading.com system might return.
-     *
-     * @param $method
-     * @param $uri
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     * @throws \DPRMC\IEXTrading\Exceptions\UnknownSymbol
-     * @throws \Exception
-     */
     protected static function makeRequest($uri)
     {
         $client = self::getClient();
@@ -74,13 +62,6 @@ class StocksAPI
         return (float)$price;
     }
 
-    /**
-     * @param $ticker
-     *
-     * @return \DPRMC\IEXTrading\Responses\StockQuote
-     * @throws \DPRMC\IEXTrading\Exceptions\UnknownSymbol
-     * @throws \Exception
-     */
     public static function getQuote($ticker)
     {
         if ($ticker == null)
@@ -98,10 +79,16 @@ class StocksAPI
 
     public static function getLogo($ticker)
     {
+        if ($ticker == null)
+            return false;
+
         $uri      = 'stock/' . $ticker . '/logo';
         $uri     .= '?token=' . self::PUBLIC_KEY;
         $response = self::makeRequest($uri);
 
-        return $response['url'];
+        $jsonString = (string)$response->getBody();
+        $response   = \GuzzleHttp\json_decode($jsonString, true);
+
+        return $response;
     }
 }

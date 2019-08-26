@@ -1,26 +1,26 @@
-.left-margin{
-    margin:0 .5em 0 0;
-}
- 
-.right-button-margin{
-    margin: 0 0 1em 0;
-    overflow: hidden;
-}
- 
-/* some changes in bootstrap modal */
-.modal-body {
-    padding: 20px 20px 0px 20px !important;
-    text-align: center !important;
-}
- 
-.modal-footer{
-    text-align: center !important;
+/* index-page-table */
+.index-stocks {
+    border-color: #000;
+    /*color: #fff;*/
 }
 
-table {
+.index-stocks tr td, .index-stocks tr th {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.index-stocks tr td:first-of-type{
+    text-align: left;
+}
+
+.index-stocks tr td:first-of-type img {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.index-stocks tr:last-of-type td {
     color: #fff;
 }
-
-table.index-stocks tr td {
-    text-transform: uppercase;
-}
+/* /index-page-table */
