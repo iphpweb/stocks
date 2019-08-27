@@ -47,7 +47,7 @@ class StocksAPI
         }
     }
 
-    public static function getPrice($ticker = null)
+    public static function getPrice($ticker = null) : float
     {
         if ($ticker == null)
             return false;
@@ -62,7 +62,7 @@ class StocksAPI
         return (float)$price;
     }
 
-    public static function getQuote($ticker)
+    public static function getQuote(string $ticker = null) : float
     {
         if ($ticker == null)
             return false;
@@ -77,7 +77,7 @@ class StocksAPI
         return (float)$response['latestPrice'];
     }
 
-    public static function getLogo($ticker)
+    public static function getLogo(string $ticker = null) : string
     {
         if ($ticker == null)
             return false;
@@ -89,6 +89,6 @@ class StocksAPI
         $jsonString = (string)$response->getBody();
         $response   = \GuzzleHttp\json_decode($jsonString, true);
 
-        return $response;
+        return (string)$response['url'];
     }
 }

@@ -41,7 +41,7 @@ $num = $stmt->rowCount();
                     $class = 'table-' . ($delta_money > 0 ? 'success' : 'danger');
 
                     echo "<tr class='$class' data-thisrecordid='{$id}'>";
-                        echo "<td><img src='{$quote_icon['url']}'> {$quote_name}</td>";
+                        echo "<td><img src='{$quote_icon}'> {$quote_name}</td>";
                         echo "<td>{$amount}</td>";
                         echo "<td>{$price_avg}</td>";
                         echo "<td>{$price_cur}</td>";
@@ -49,14 +49,18 @@ $num = $stmt->rowCount();
                         echo "<td>{$delta_prcnt} %</td>";
                     echo "</tr>";
 
-                    $total_delta += $delta_money;
+                    $total_delta_money += $delta_money;
+                    //$all_positions += round($amount * $price_avg, 2);
                 }
 
-                $total_tr_class = 'bg-' . ($total_delta > 0 ? 'success' : 'danger');
+                $total_tr_class = 'bg-' . ($total_delta_money > 0 ? 'success' : 'danger');
                 $current_date = date('H:i', time()) . ' on ' . date('dS M, Y ', time());
+                //$total_delta_prcnt = round($total_delta_money * 100/$all_positions, 2);
+
                 echo "<tr class='{$total_tr_class}'>
-                        <td colspan='5'>Balance as of {$current_date}:</td>
-                        <td>{$total_delta}</td>
+                        <td colspan='4'>Balance as of {$current_date}:</td>
+                        <td>{$total_delta_money}</td>
+                        <td>{$total_delta_prcnt}</td>
                      </tr>";
             } else {
                 echo "<div class='alert alert-info'>No stock records found.</div>";

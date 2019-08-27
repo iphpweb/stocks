@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Europe/Moscow');
+
 // vendor auto-load
 include_once DOCUMENT_ROOT . '/vendor/autoload.php';
 
