@@ -2,7 +2,9 @@
     "name": "evgeny/portfolio",
     "description": "stocks and portfolio watcher",
     "require": {
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "doctrine/migrations": "^2.1",
+        "doctrine/orm": "^2.6"
     },
     "autoload": {
         "psr-4": {

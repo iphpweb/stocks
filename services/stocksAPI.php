@@ -47,7 +47,7 @@ class StocksAPI
         }
     }
 
-    public static function getPrice($ticker = null) : float
+    public static function getPrice(string $ticker = null) : float
     {
         if ($ticker == null)
             return false;
