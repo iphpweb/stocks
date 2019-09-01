@@ -35,9 +35,12 @@ $num = $stmt->rowCount();
                     extract($row);
 
                     $quote_icon = $stocksAPI::getLogo($quote_name);
+
                     $price_cur = $stocksAPI::getQuote($quote_name);
+
                     $delta_money = round($amount * ($price_cur - $price_avg), 2);
                     $delta_prcnt = round($delta_money*100/($price_avg * $amount), 2);
+
                     $class = 'table-' . ($delta_money > 0 ? 'success' : 'danger');
 
                     echo "<tr class='$class' data-thisrecordid='{$id}'>";
@@ -50,15 +53,13 @@ $num = $stmt->rowCount();
                     echo "</tr>";
 
                     $total_delta_money += $delta_money;
-                    //$all_positions += round($amount * $price_avg, 2);
                 }
 
                 $total_tr_class = 'bg-' . ($total_delta_money > 0 ? 'success' : 'danger');
                 $current_date = date('H:i', time()) . ' on ' . date('dS M, Y ', time());
-                //$total_delta_prcnt = round($total_delta_money * 100/$all_positions, 2);
 
                 echo "<tr class='{$total_tr_class}'>
-                        <td colspan='4'>Balance as of {$current_date}:</td>
+                        <td colspan='4'>Balance at {$current_date}</td>
                         <td>{$total_delta_money}</td>
                         <td>{$total_delta_prcnt}</td>
                      </tr>";

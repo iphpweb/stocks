@@ -7,3 +7,6 @@
 
 /vendor/
 /composer.lock
+
+# stocks logos - this may vary from time to time
+/static/stock_logo/

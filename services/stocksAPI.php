@@ -16,6 +16,8 @@ class StocksAPI
     const SECRET_KEY = SECRET_IEX_KEY;
     const PUBLIC_KEY = PUBLIC_IEX_KEY;
 
+    const STOCK_LOGO_FOLDER = '/static/stock_logo/';
+
     private static $url = self::ENDPOINT_URL . self::ENDPOINT_VERSION . '/';
 
     /**
@@ -50,7 +52,7 @@ class StocksAPI
     public static function getPrice(string $ticker = null) : float
     {
         if ($ticker == null)
-            return false;
+            return 00.00;
 
         $uri        = 'stock/' . $ticker . '/price';
         $uri       .= '?token=' . self::PUBLIC_KEY;
@@ -65,7 +67,7 @@ class StocksAPI
     public static function getQuote(string $ticker = null) : float
     {
         if ($ticker == null)
-            return false;
+            return 00.00;
 
         $uri      = 'stock/' . $ticker . '/quote';
         $uri     .= '?token=' . self::PUBLIC_KEY;
@@ -82,6 +84,13 @@ class StocksAPI
         if ($ticker == null)
             return false;
 
+        $logo_name = strtoupper($ticker) . '.png';
+        $logo_path = self::STOCK_LOGO_FOLDER . $logo_name;
+
+        if (file_exists($logo_path)) {
+            return $logo_path;
+        }
+
         $uri      = 'stock/' . $ticker . '/logo';
         $uri     .= '?token=' . self::PUBLIC_KEY;
         $response = self::makeRequest($uri);
@@ -89,6 +98,8 @@ class StocksAPI
         $jsonString = (string)$response->getBody();
         $response   = \GuzzleHttp\json_decode($jsonString, true);
 
-        return (string)$response['url'];
+        file_put_contents(DOCUMENT_ROOT . self::STOCK_LOGO_FOLDER . $logo_name, file_get_contents((string) $response['url']));
+
+        return $logo_path;
     }
 }
