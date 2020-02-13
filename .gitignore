@@ -2,11 +2,10 @@
 .vscode
 
 # local env setings
-/env.php
-/config/env.php
+env.php
 
 /vendor/
 /composer.lock
 
-# stocks logos - this may vary from time to time
+# STATIC files: stocks logos - this may vary from time to time
 /static/stock_logo/
