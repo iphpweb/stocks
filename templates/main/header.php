@@ -1,26 +1,20 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+include_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+
+header('Content-Type: text/html; charset=utf-8');
 date_default_timezone_set('Europe/Moscow');
 
-// vendor auto-load
-include_once DOCUMENT_ROOT . '/vendor/autoload.php';
-
- // include database and object files
-include_once DOCUMENT_ROOT . '/config/db.php';
-
-// TODO autoload classes
-include_once DOCUMENT_ROOT . '/services/positions.php';
-include_once DOCUMENT_ROOT . '/services/portfolio.php';
-include_once DOCUMENT_ROOT . '/services/stocksAPI.php';
-
-//use \Services;
 // get database connection
 $db = Database::getInstance();
 
 global $positions;
-$positions = new Positions($db);
+$positions = new \Positions($db);
 
 global $stocksAPI;
-$stocksAPI = new StocksAPI($db);
+$stocksAPI = new \StocksAPI($db);
 
 //TODO separate portfolios
 //global $portfolio;
@@ -44,12 +38,18 @@ $stocksAPI = new StocksAPI($db);
 </head>
 
 <body>
-    <div class="container mt-5 mb-5">
-        <h1><?= $page['title'] ?></h1>
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col">
+                <h1><?= $page['title'] ?></h1>
+            </div>
 
-        <a href='<?= $page['header_right_button_url'] ?>' 
-           class='btn btn-outline-primary float-right mb-3' 
-           role="button" 
-           aria-pressed="true"><?= $page['header_right_button_title']?></a>
+            <div class="col align-self-center">
+                <a href='<?= $page['header_right_button_url'] ?>'
+                   class='btn btn-outline-primary'
+                   role="button"
+                   aria-pressed="true"><?= $page['header_right_button_title']?></a>
+            </div>
+        </div>
 
-        <div class="clearfix"></div>
+        <div class="w-100"></div>
