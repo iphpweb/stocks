@@ -32,7 +32,7 @@ class Positions
      */
     public $updated_at;
 
-    private $_table_name = "positions";
+    private $_table_name = "positions";//
 
     /*private $_postitions_table_sort_keys = [
         'quote' => 'quote_name',
