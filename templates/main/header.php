@@ -39,16 +39,16 @@ $stocksAPI = new \StocksAPI($db);
 
 <body>
     <div class="container">
-        <div class="row justify-content-between">
-            <div class="col">
+        <div class="row d-flex">
+            <div class="col d-flex">
                 <h1><?= $page['title'] ?></h1>
             </div>
 
-            <div class="col align-self-center">
-                <a href='<?= $page['header_right_button_url'] ?>'
-                   class='btn btn-outline-primary'
+            <div class="col align-self-center d-flex">
+                <button href='<?= $page['header_right_button_url'] ?>'
+                   class='btn btn-outline-primary ml-auto'
                    role="button"
-                   aria-pressed="true"><?= $page['header_right_button_title']?></a>
+                   aria-pressed="true"><?= $page['header_right_button_title']?></button>
             </div>
         </div>
 

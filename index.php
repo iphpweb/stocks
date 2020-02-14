@@ -20,20 +20,20 @@ $stocks = $positions->readAll(
 ?>
 
 <div class="table-responsive">
-    <table class='table table-sm table-striped table-hover table-bordered index-stocks'>
-        <thead class="thead-dark">
-            <tr>
-                <th>Name</th>
-                <th>Qnt</th>
-                <th>Ave</th>
-                <th>Cur</th>
-                <th>+/-, $</th>
-                <th>+/-, %</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?
-            if (count($stocks) > 0) {
+    <? if (count($stocks) > 0) { ?>
+        <table class='table table-sm table-striped table-hover table-bordered index-stocks'>
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Qnt</th>
+                    <th>Ave</th>
+                    <th>Cur</th>
+                    <th>+/-, $</th>
+                    <th>+/-, %</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?
                 $total_delta_money = 0;
 
                 array_walk(
@@ -57,17 +57,15 @@ $stocks = $positions->readAll(
                 $total_tr_class = 'bg-' . ($total_delta_money > 0 ? 'success' : 'danger');
                 $current_date = date('H:i', time()) . ' on ' . date('M dS, y', time());
 
-                echo "<tr class='{$total_tr_class}'>
-                        <td colspan='4'>{$current_date}</td>
-                        <td>{$total_delta_money}</td>
-                        <td></td>
-                     </tr>";
-            } else {
-                echo "<div class='alert alert-info'>No stock records found.</div>";
-            }
-            ?>
-        </tbody>
-    </table>
+                echo "<tr><td colspan='6'>&nbsp;</td></tr>";
+
+                echo "<tr class='{$total_tr_class}'><td colspan='4'>{$current_date}</td><td>{$total_delta_money}</td><td></td></tr>";
+                ?>
+            </tbody>
+        </table>
+    <? } else {
+        echo "<div class='alert alert-info'>No stock records found.</div>";
+    } ?>
 </div>
 
 <?

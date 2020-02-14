@@ -36,19 +36,19 @@ if (
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <div class="form-group">
         <label for="quote_name">Ticker</label>
-        <input type="text" class="form-control" id="quote_name" name="quote_name" aria-describedby="quote_name" placeholder="Enter ticker">
+        <input type="text" class="form-control" id="quote_name" name="quote_name" aria-describedby="quote_name" placeholder="Enter ticker" value="<?= $_POST['quote_name'] ?>">
         <small id="quote_name" class="form-text text-muted">Enter quote name, known as market ticker, short and in lower case.</small>
     </div>
 
     <div class="form-group">
         <label for="amount">Amount of shares</label>
-        <input type="text" class="form-control" id="amount" name="amount" aria-describedby="amount" placeholder="Enter total amount">
+        <input type="text" class="form-control" id="amount" name="amount" aria-describedby="amount" placeholder="Enter total amount" value="<?= $_POST['amount'] ?>">
         <small id="amount" class="form-text text-muted">Total amount of shares.</small>
     </div>
 
     <div class="form-group">
         <label for="price_avg">Average price</label>
-        <input type="text" class="form-control" id="price_avg" name="price_avg" aria-describedby="price_avg" placeholder="Enter average price">
+        <input type="text" class="form-control" id="price_avg" name="price_avg" aria-describedby="price_avg" placeholder="Enter average price" value="<?= $_POST['price_avg'] ?>">
         <small id="price_avg" class="form-text text-muted">Average price in portfolo.</small>
     </div>
 
